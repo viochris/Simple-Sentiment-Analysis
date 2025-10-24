@@ -16,8 +16,6 @@ if bahasa != st.session_state.last_lang:
     st.session_state.clear()
     st.session_state.bahasa = bahasa
     st.rerun()
-    for key in st.session_state.keys():
-        del st.session_state[key]
 
 
 tab_file, tab_teks = st.tabs(["File", "Text"])
@@ -26,7 +24,7 @@ if bahasa == "English":
     nlp = pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
 
     with tab_file:
-        file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
+        file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"], key=f"data {bahasa}")
         if file_table_en is not None:
             if file_table_en.name.endswith(".csv"):
                 df = pd.read_csv(file_table_en)
@@ -171,6 +169,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
