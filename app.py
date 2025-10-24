@@ -16,6 +16,8 @@ if bahasa != st.session_state.last_lang:
     st.session_state.clear()
     st.session_state.bahasa = bahasa
     st.rerun()
+    for key in st.session_state.keys():
+        del st.session_state[key]
 
 
 tab_file, tab_teks = st.tabs(["File", "Text"])
@@ -169,6 +171,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
