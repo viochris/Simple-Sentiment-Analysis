@@ -14,7 +14,7 @@ if "last_lang" not in st.session_state:
 
 if bahasa != st.session_state.last_lang:
     st.session_state.clear()
-    st.session_state.bahasa = bahasa_baru
+    st.session_state.bahasa = bahasa
 
 
 
@@ -169,5 +169,6 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
