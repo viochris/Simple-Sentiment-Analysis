@@ -14,13 +14,13 @@ tab_file, tab_teks = st.tabs(["File", "Text"])
 if bahasa == "English":
     nlp = pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
 
-    with tab_file:
-        st.session_state.file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
-        if file_table is not None:
-            if file_table.name.endswith(".csv"):
-                df = pd.read_csv(st.session_state.file_table_en)
-            elif file_table.name.endswith(".xlsx"):
-                df = pd.read_excel(st.session_state.file_table_en)
+    with file_table_en:
+        file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
+        if file_table_en is not None:
+            if file_table_en.name.endswith(".csv"):
+                df = pd.read_csv(file_table_en)
+            elif file_table_en.name.endswith(".xlsx"):
+                df = pd.read_excel(file_table_en)
                 
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
@@ -90,12 +90,12 @@ elif bahasa == "Indonesia":
     nlp = pipeline("sentiment-analysis", model="w11wo/indonesian-roberta-base-sentiment-classifier")
     
     with tab_file:
-        st.session_state.file_table_id = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
-        if file_table is not None:
-            if file_table.name.endswith(".csv"):
-                df = pd.read_csv(st.session_state.file_table_id)
-            elif file_table.name.endswith(".xlsx"):
-                df = pd.read_excel(st.session_state.file_table_id)
+        file_table_id = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
+        if file_table_id is not None:
+            if file_table_id.name.endswith(".csv"):
+                df = pd.read_csv(file_table_id)
+            elif file_table_id.name.endswith(".xlsx"):
+                df = pd.read_excel(file_table_id)
                 
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
