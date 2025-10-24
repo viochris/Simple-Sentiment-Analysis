@@ -13,7 +13,7 @@ def get_top_n_words_en(corpus, n, ngram_range):
 
 def get_top_n_words_id(corpus, n, ngram_range):
     stopword = stopwords.words('indonesian')
-    if "luar" in stopword or "biasa" in stopword
+    if "luar" in stopword or "biasa" in stopword:
         stopword.remove(luar)
         stopword.remove(biasa)
     
@@ -26,3 +26,4 @@ def get_top_n_words_id(corpus, n, ngram_range):
 def convert_for_download(df):
 
     return df.to_csv(index=False).encode("utf-8")
+
