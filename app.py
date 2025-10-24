@@ -15,7 +15,7 @@ if "last_lang" not in st.session_state:
 if bahasa != st.session_state.last_lang:
     st.session_state.clear()
     st.session_state.bahasa = bahasa
-
+    st.rerun()
 
 
 tab_file, tab_teks = st.tabs(["File", "Text"])
@@ -169,6 +169,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
