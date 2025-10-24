@@ -9,6 +9,15 @@ import re
 
 bahasa = st.selectbox("Choose Language: ", ["English", "Indonesia"])
 
+if "last_lang" not in st.session_state:
+    st.session_state.last_lang = bahasa
+
+if bahasa != st.session_state.last_lang:
+    st.session_state.clear()
+    st.session_state.bahasa = bahasa_baru
+
+
+
 tab_file, tab_teks = st.tabs(["File", "Text"])
 
 if bahasa == "English":
@@ -54,8 +63,8 @@ if bahasa == "English":
             st.bar_chart(result_df, x="Word", y="Jumlah", x_label="Kata", y_label="Banyaknya kemunculan")
             
             
-            df['Panjang Kalimat'] = df["Sentiment"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
-            df['Panjang Kata'] = df["Sentiment"].apply(lambda x: len(x.split(" ")))
+            df['Panjang Kalimat'] = df["komentar"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
+            df['Panjang Kata'] = df["komentar"].apply(lambda x: len(x.split(" ")))
             st.dataframe(df)
             
             data_kalimat = df.groupby("Sentiment")["Panjang Kalimat"].mean().sort_values().reset_index()
@@ -129,8 +138,8 @@ elif bahasa == "Indonesia":
             st.bar_chart(result_df, x="Word", y="Jumlah", x_label="Kata", y_label="Banyaknya kemunculan")
             
             
-            df['Panjang Kalimat'] = df["Sentiment"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
-            df['Panjang Kata'] = df["Sentiment"].apply(len)
+            df['Panjang Kalimat'] = df["komentar"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
+            df['Panjang Kata'] = df["komentar"].apply(len)
             
             data_kalimat = df.groupby("Sentiment")["Panjang Kalimat"].mean().sort_values().reset_index()
             st.dataframe(data_kalimat)
@@ -160,4 +169,5 @@ elif bahasa == "Indonesia":
         
 
         
+
 
