@@ -15,12 +15,12 @@ if bahasa == "English":
     nlp = pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
 
     with tab_file:
-        file_table = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
+        st.session_state.file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
         if file_table is not None:
             if file_table.name.endswith(".csv"):
-                df = pd.read_csv(file_table)
+                df = pd.read_csv(st.session_state.file_table_en)
             elif file_table.name.endswith(".xlsx"):
-                df = pd.read_excel(file_table)
+                df = pd.read_excel(st.session_state.file_table_en)
                 
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
@@ -55,7 +55,8 @@ if bahasa == "English":
             
             
             df['Panjang Kalimat'] = df["Sentiment"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
-            df['Panjang Kata'] = df["Sentiment"].apply(lambda x: len(x.split()))
+            df['Panjang Kata'] = df["Sentiment"].apply(lambda x: len(x.split(" ")))
+            st.dataframe(df)
             
             data_kalimat = df.groupby("Sentiment")["Panjang Kalimat"].mean().sort_values().reset_index()
             st.dataframe(data_kalimat)
@@ -89,12 +90,12 @@ elif bahasa == "Indonesia":
     nlp = pipeline("sentiment-analysis", model="w11wo/indonesian-roberta-base-sentiment-classifier")
     
     with tab_file:
-        file_table = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
+        st.session_state.file_table_id = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"])
         if file_table is not None:
             if file_table.name.endswith(".csv"):
-                df = pd.read_csv(file_table)
+                df = pd.read_csv(st.session_state.file_table_id)
             elif file_table.name.endswith(".xlsx"):
-                df = pd.read_excel(file_table)
+                df = pd.read_excel(st.session_state.file_table_id)
                 
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
@@ -157,4 +158,5 @@ elif bahasa == "Indonesia":
                     st.markdown(msg["content"]) 
         
         
+
         
