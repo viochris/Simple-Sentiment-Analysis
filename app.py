@@ -64,7 +64,7 @@ if bahasa == "English":
             
             
             df['Panjang Kalimat'] = df["komentar"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
-            df['Panjang Kata'] = df["komentar"].apply(lambda x: len(x.split(" ")))
+            df['Panjang Kata'] = df["komentar"].apply(lambda x: len(x.split()))
             
             data_kalimat = df.groupby("Sentiment")["Panjang Kalimat"].mean().sort_values().reset_index()
             st.dataframe(data_kalimat)
@@ -138,7 +138,7 @@ elif bahasa == "Indonesia":
             
             
             df['Panjang Kalimat'] = df["komentar"].apply(lambda x: len([x for x in re.split(r'[.!?]+', x) if x.strip()]))
-            df['Panjang Kata'] = df["komentar"].apply(len)
+            df['Panjang Kata'] = df["komentar"].apply(lambda x: len(x.split())
             
             data_kalimat = df.groupby("Sentiment")["Panjang Kalimat"].mean().sort_values().reset_index()
             st.dataframe(data_kalimat)
@@ -168,6 +168,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
