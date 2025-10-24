@@ -98,7 +98,7 @@ elif bahasa == "Indonesia":
     nlp = pipeline("sentiment-analysis", model="w11wo/indonesian-roberta-base-sentiment-classifier")
     
     with tab_file:
-        file_table_id = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"], key=f"data {bahasa})
+        file_table_id = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"], key=f"data {bahasa}")
         if file_table_id is not None:
             if file_table_id.name.endswith(".csv"):
                 df = pd.read_csv(file_table_id)
@@ -168,6 +168,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
