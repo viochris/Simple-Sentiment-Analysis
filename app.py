@@ -35,7 +35,6 @@ if bahasa == "English":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
-            time.sleep(1)
             st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
@@ -116,7 +115,6 @@ elif bahasa == "Indonesia":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
-            time.sleep(1)
             st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
@@ -183,6 +181,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
