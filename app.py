@@ -4,7 +4,7 @@ from transformers import pipeline
 import plotly.express as px
 from used_func import get_top_n_words_en, get_top_n_words_id, convert_for_download
 import torch
-import re
+import re, time
 
 
 bahasa = st.selectbox("Choose Language: ", ["English", "Indonesia"])
@@ -35,6 +35,7 @@ if bahasa == "English":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
+            time.sleep(1)
             st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
@@ -115,6 +116,7 @@ elif bahasa == "Indonesia":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
+            time.sleep(1)
             st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
@@ -181,6 +183,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
