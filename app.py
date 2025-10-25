@@ -74,7 +74,6 @@ if bahasa == "English":
             
             data_kata = df.groupby("Sentiment")["Panjang Kata"].mean().sort_values().reset_index()
             st.dataframe(data_kata)
-            st.toast("!", icon="🎉")
             
             st.toast("📊 Data processing completed successfully.")
             st.toast("✅ All tasks completed. You may now review the results.")
@@ -155,6 +154,7 @@ elif bahasa == "Indonesia":
             
             data_kata = df.groupby("Sentiment")["Panjang Kata"].mean().sort_values().reset_index()
             st.dataframe(data_kata)
+            
             st.toast("📊 Data processing completed successfully.")
             st.toast("✅ All tasks completed. You may now review the results.")
             st.balloons()
@@ -181,6 +181,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
