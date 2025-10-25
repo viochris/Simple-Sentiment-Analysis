@@ -26,13 +26,16 @@ if bahasa == "English":
     with tab_file:
         file_table_en = st.file_uploader("Please upload yoru data here!", type=["csv", "xlsx"], key=f"data {bahasa}")
         if file_table_en is not None:
+            
             if file_table_en.name.endswith(".csv"):
                 df = pd.read_csv(file_table_en)
             elif file_table_en.name.endswith(".xlsx"):
                 df = pd.read_excel(file_table_en)
                 
+            st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
+            st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
@@ -71,6 +74,11 @@ if bahasa == "English":
             
             data_kata = df.groupby("Sentiment")["Panjang Kata"].mean().sort_values().reset_index()
             st.dataframe(data_kata)
+            st.toast("!", icon="🎉")
+            
+            st.toast("📊 Data processing completed successfully.")
+            st.toast("✅ All tasks completed. You may now review the results.")
+            st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
             
@@ -105,8 +113,10 @@ elif bahasa == "Indonesia":
             elif file_table_id.name.endswith(".xlsx"):
                 df = pd.read_excel(file_table_id)
                 
+            st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
+            st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
@@ -145,6 +155,9 @@ elif bahasa == "Indonesia":
             
             data_kata = df.groupby("Sentiment")["Panjang Kata"].mean().sort_values().reset_index()
             st.dataframe(data_kata)
+            st.toast("📊 Data processing completed successfully.")
+            st.toast("✅ All tasks completed. You may now review the results.")
+            st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
         
@@ -168,6 +181,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
