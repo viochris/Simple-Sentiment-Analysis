@@ -35,7 +35,6 @@ if bahasa == "English":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
-            st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
@@ -76,7 +75,6 @@ if bahasa == "English":
             st.dataframe(data_kata)
             
             st.toast("📊 Data processing completed successfully.")
-            st.toast("✅ All tasks completed. You may now review the results.")
             st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
@@ -115,7 +113,6 @@ elif bahasa == "Indonesia":
             st.toast("📂 Data successfully loaded. Preparing for processing...")
             st.write("📊 Preview Data:")
             st.dataframe(df.head())
-            st.toast("⚙️ Processing data, please wait a moment...")
             
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
@@ -156,7 +153,6 @@ elif bahasa == "Indonesia":
             st.dataframe(data_kata)
             
             st.toast("📊 Data processing completed successfully.")
-            st.toast("✅ All tasks completed. You may now review the results.")
             st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
@@ -181,6 +177,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
