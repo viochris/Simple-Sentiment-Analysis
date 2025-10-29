@@ -75,7 +75,6 @@ if bahasa == "English":
             st.dataframe(data_kata)
             
             st.toast("📊 Data processing completed successfully.")
-            st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
             
@@ -153,7 +152,6 @@ elif bahasa == "Indonesia":
             st.dataframe(data_kata)
             
             st.toast("📊 Data processing completed successfully.")
-            st.balloons()
         else:
             st.write("⚠️ Belum ada file yang di-upload")
         
@@ -177,6 +175,7 @@ elif bahasa == "Indonesia":
         
 
         
+
 
 
 
