@@ -73,6 +73,14 @@ Beyond simple classification, this dashboard provides deep linguistic insights:
     * **Tab "File":** Upload your dataset to see charts, N-grams, and download results.
     * **Tab "Text":** Type manually to check sentiment in real-time.
 
+### 🧪 Sample Data for Testing
+Don't have a dataset ready? You can use the sample files provided in this repository to test the dashboard immediately:
+
+* **English Data:** `sample_data/english_reviews.csv` (CSV format)
+* **Indonesian Data:** `sample_data/indo_reviews.xlsx` (Excel format)
+
+*Tip: Download these files and upload them in the "File" tab to see the analytics in action!*
+
 ## 📷 Screenshots
 *(Please add screenshots of the dashboard here to showcase the UI)*
 
