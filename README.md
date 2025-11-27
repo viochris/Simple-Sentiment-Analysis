@@ -44,10 +44,9 @@ Beyond simple classification, this dashboard provides deep linguistic insights:
 
 * **Automated Sentiment Labeling:** Utilizes Transformer-based models (RoBERTa) to classify text into Positive, Negative, or Neutral with high contextual accuracy.
 * **N-Gram Keyword Extraction:** Identifies top frequent words (Unigrams) and phrases (Bigrams/Trigrams) to uncover the *root causes* of specific sentiments (e.g., detecting "slow shipping" appearing frequently in negative reviews).
-* **Text Complexity Analysis:** Calculates and compares linguistic metrics across sentiment groups:
-    * *Average Sentence Length:* To gauge the depth and seriousness of the feedback.
-    * *Word Count Distribution:* To understand user engagement levels.
-* **Descriptive Statistics:** Aggregates mean values for text length to find correlations between review length and sentiment polarity.
+* **Text Complexity & Correlation Analysis:** Aggregates linguistic metrics by sentiment group to reveal behavioral patterns:
+    * *Sentiment vs. Sentence Length:* Analyzes if specific sentiments (e.g., Negative) tend to have significantly longer sentences, indicating detailed complaints vs. short praises.
+    * *Sentiment vs. Word Count:* Compares the average verbosity across different sentiment categories.
 * **Interactive Distribution Metrics:** Visualizes the overall sentiment balance using dynamic Pie Charts and Bar Graphs to spot trends instantly.
 
 ## 🚀 Installation & Usage
@@ -82,7 +81,14 @@ Don't have a dataset ready? You can use the sample files provided in this reposi
 *Tip: Download these files and upload them in the "File" tab to see the analytics in action!*
 
 ## 📷 Screenshots
-*(Please add screenshots of the dashboard here to showcase the UI)*
+
+### 📊 Batch Data Analysis
+Upload CSV or Excel files to get instant visual analytics and sentiment distribution:
+![Batch Analysis](assets/batch_analysis_dashboard.png)
+
+### 💬 Real-Time Text Analysis
+Test the model with individual sentences using the interactive text mode:
+![Real-Time Demo](assets/realtime_text_demo.png)
 
 ---
 **Author:** [Silvio Christian, Joe](https://github.com/viochris)
