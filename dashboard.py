@@ -12,7 +12,7 @@ import pandas as pd
 import streamlit as st
 from transformers import pipeline
 import plotly.express as px
-from used_func import get_top_n_words_en, get_top_n_words_id, convert_for_download
+from utils import get_top_n_words_en, get_top_n_words_id, convert_for_download
 import torch
 import re, time
 
@@ -215,3 +215,4 @@ elif bahasa == "Indonesia":
                 with st.chat_message(msg["role"]):
                     # Display the content of the message using Markdown for nice formatting.
                     st.markdown(msg["content"])
+
