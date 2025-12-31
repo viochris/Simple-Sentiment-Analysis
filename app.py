@@ -122,13 +122,25 @@ if bahasa == "English":
             conf = nlp(text)[0]["score"]     
             st.info(
                 st.markdown(f"""
-                    **Your Text: **{sentiment}
-                    **Confidence: **{conf}
+                    **Your Text:** {sentiment}
+                    **Confidence:** {conf}
                 """) 
             )
         
-            def predict_function(text):
-                predictions = nlp(text, top_k=None) 
+            def predict_function(texts):
+                if instance(texts, np.ndarray):
+                    texts = texts.tolist()
+                if instance(texts, str):
+                    texts = [texts]
+
+                validated_text = []
+                for text in texts:
+                    if not t or t == "":
+                        validated_text.append(".")
+                    else:
+                        validated_text.append(text)
+
+                predictions = nlp(validated_text, top_k=None) 
 
                 scores = []
                 for prediction in predictions:
@@ -239,7 +251,19 @@ elif bahasa == "Indonesia":
             )
         
             def predict_function(text):
-                predictions = nlp(text, top_k=None) 
+                if instance(texts, np.ndarray):
+                    texts = texts.tolist()
+                if instance(texts, str):
+                    texts = [texts]
+
+                validated_text = []
+                for text in texts:
+                    if not t or t == "":
+                        validated_text.append(".")
+                    else:
+                        validated_text.append(text)
+
+                predictions = nlp(validated_text, top_k=None) 
 
                 scores = []
                 for prediction in predictions:
