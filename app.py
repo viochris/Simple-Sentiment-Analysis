@@ -121,8 +121,8 @@ if bahasa == "English":
             conf = nlp(text)[0]["score"]     
             st.info(
                 st.markdown(f"""
-                    **Your Text: **{msg['content']}
-                    **Confidence: **{msg['conf']}
+                    **Your Text: **{sentiment}
+                    **Confidence: **{conf}
                 """) 
             )
         
@@ -133,8 +133,8 @@ if bahasa == "English":
             for prediction in predictions:
                 sorted_pred = sorted(prediction, key=lambda x: x['label'])
                 
-                items = [score for item['score'] in sorted_pred]
-                scores.append(scores)
+                items = [item['score'] for item in sorted_pred]
+                scores.append(items)
 
             return np.array(scores)
 
