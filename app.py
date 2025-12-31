@@ -120,17 +120,15 @@ if bahasa == "English":
             # Perform Single Inference
             sentiment = nlp(text)[0]["label"]     
             conf = nlp(text)[0]["score"]     
-            st.info(
-                st.markdown(f"""
-                    **Your Text:** {sentiment}
-                    **Confidence:** {conf}
-                """) 
-            )
-        
+            st.info(f"""
+                **Sentiment:** {sentiment}  
+                **Confidence:** {conf:.2f}
+            """)
+
             def predict_function(texts):
-                if instance(texts, np.ndarray):
+                if isinstance(texts, np.ndarray):
                     texts = texts.tolist()
-                if instance(texts, str):
+                if isinstance(texts, str):
                     texts = [texts]
 
                 validated_text = []
@@ -243,17 +241,15 @@ elif bahasa == "Indonesia":
             # Perform Single Inference
             sentiment = nlp(text)[0]["label"]     
             conf = nlp(text)[0]["score"]     
-            st.info(
-                st.markdown(f"""
-                    **Your Text: **{sentiment}
-                    **Confidence: **{conf}
-                """) 
-            )
+            st.info(f"""
+                **Sentiment:** {sentiment}  
+                **Confidence:** {conf:.2f}
+            """)
         
             def predict_function(text):
-                if instance(texts, np.ndarray):
+                if isinstance(texts, np.ndarray):
                     texts = texts.tolist()
-                if instance(texts, str):
+                if isinstance(texts, str):
                     texts = [texts]
 
                 validated_text = []
