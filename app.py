@@ -11,6 +11,7 @@ Description:
 import pandas as pd
 import numpy as np
 import streamlit as st
+import streamlit.components.v1 as components
 from transformers import pipeline
 import plotly.express as px
 from utils import get_top_n_words_en, get_top_n_words_id, convert_for_download
@@ -157,8 +158,8 @@ if bahasa == "English":
                         classifier_fn=predict_function,
                         num_features=5 # Top 5 Words
                     )
-                    fig = exp.as_pyplot_figure()
-                    st.pyplot(fig)
+                    exp.as_html()
+                    components.html(html_data, height=800, scrolling=True)
         
 # ==========================================
 # 4. Logic: Indonesian Analysis
@@ -280,5 +281,5 @@ elif bahasa == "Indonesia":
                         classifier_fn=predict_function,
                         num_features=5 # Top 5 Words
                     )
-                    fig = exp.as_pyplot_figure()
-                    st.pyplot(fig)
+                    exp.as_html()
+                    components.html(html_data, height=800, scrolling=True)
