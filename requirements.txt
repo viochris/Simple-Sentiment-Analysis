@@ -1,5 +1,6 @@
 streamlit
 pandas
+numpy
 transformers
 torch
 plotly
@@ -7,4 +8,5 @@ scikit-learn
 nltk
 openpyxl
 lime
+
 
