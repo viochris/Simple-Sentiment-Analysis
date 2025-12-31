@@ -6,4 +6,5 @@ plotly
 scikit-learn
 nltk
 openpyxl
+lime
 
