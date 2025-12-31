@@ -115,49 +115,50 @@ if bahasa == "English":
             
     with tab_teks:
 
-        text = st.text_area("Write Your Sentiment Here") 
-        if text:
-            # Perform Single Inference
-            sentiment = nlp(text)[0]["label"]     
-            conf = nlp(text)[0]["score"]     
-            st.info(f"""
-                **Sentiment:** {sentiment}  
-                **Confidence:** {conf:.2f}
-            """)
+        text = st.text_area("Write Your Sentiment Here")
+        if st.button("Send"): 
+            if text:
+                # Perform Single Inference
+                sentiment = nlp(text)[0]["label"]     
+                conf = nlp(text)[0]["score"]     
+                st.info(f"""
+                    **Sentiment:** {sentiment}  
+                    **Confidence:** {conf:.2f}
+                """)
 
-            def predict_function(texts):
-                if isinstance(texts, np.ndarray):
-                    texts = texts.tolist()
-                if isinstance(texts, str):
-                    texts = [texts]
+                def predict_function(texts):
+                    if isinstance(texts, np.ndarray):
+                        texts = texts.tolist()
+                    if isinstance(texts, str):
+                        texts = [texts]
 
-                validated_text = []
-                for text in texts:
-                    if not t or t == "":
-                        validated_text.append(".")
-                    else:
-                        validated_text.append(text)
+                    validated_text = []
+                    for text in texts:
+                        if not text or text == "":
+                            validated_text.append(".")
+                        else:
+                            validated_text.append(text)
 
-                predictions = nlp(validated_text, top_k=None) 
+                    predictions = nlp(validated_text, top_k=None) 
 
-                scores = []
-                for prediction in predictions:
-                    sorted_pred = sorted(prediction, key=lambda x: x['label'])
-                    
-                    items = [item['score'] for item in sorted_pred]
-                    scores.append(items)
+                    scores = []
+                    for prediction in predictions:
+                        sorted_pred = sorted(prediction, key=lambda x: x['label'])
+                        
+                        items = [item['score'] for item in sorted_pred]
+                        scores.append(items)
 
-                return np.array(scores)
+                    return np.array(scores)
 
-            with st.spinner("Analyzing with LIME..."):
-                explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
-                exp = explainer.explain_instance(
-                    text_instance=text,
-                    classifier_fn=predict_function,
-                    num_features=5 # Top 5 Words
-                )
-                fig = exp.as_pyplot_figure()
-                st.pyplot(fig)
+                with st.spinner("Analyzing with LIME..."):
+                    explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
+                    exp = explainer.explain_instance(
+                        text_instance=text,
+                        classifier_fn=predict_function,
+                        num_features=5 # Top 5 Words
+                    )
+                    fig = exp.as_pyplot_figure()
+                    st.pyplot(fig)
         
 # ==========================================
 # 4. Logic: Indonesian Analysis
@@ -237,45 +238,47 @@ elif bahasa == "Indonesia":
             st.session_state.messages_indo = []
         
         text = st.text_area("Write Your Sentiment Here") 
-        if text:
-            # Perform Single Inference
-            sentiment = nlp(text)[0]["label"]     
-            conf = nlp(text)[0]["score"]     
-            st.info(f"""
-                **Sentiment:** {sentiment}  
-                **Confidence:** {conf:.2f}
-            """)
-        
-            def predict_function(text):
-                if isinstance(texts, np.ndarray):
-                    texts = texts.tolist()
-                if isinstance(texts, str):
-                    texts = [texts]
 
-                validated_text = []
-                for text in texts:
-                    if not t or t == "":
-                        validated_text.append(".")
-                    else:
-                        validated_text.append(text)
+        if st.button("Send"):
+            if text:
+                # Perform Single Inference
+                sentiment = nlp(text)[0]["label"]     
+                conf = nlp(text)[0]["score"]     
+                st.info(f"""
+                    **Sentiment:** {sentiment}  
+                    **Confidence:** {conf:.2f}
+                """)
+            
+                def predict_function(text):
+                    if isinstance(texts, np.ndarray):
+                        texts = texts.tolist()
+                    if isinstance(texts, str):
+                        texts = [texts]
 
-                predictions = nlp(validated_text, top_k=None) 
+                    validated_text = []
+                    for text in texts:
+                        if not text or text == "":
+                            validated_text.append(".")
+                        else:
+                            validated_text.append(text)
 
-                scores = []
-                for prediction in predictions:
-                    sorted_pred = sorted(prediction, key=lambda x: x['label'])
-                    
-                    items = [item['score'] for item in sorted_pred]
-                    scores.append(items)
+                    predictions = nlp(validated_text, top_k=None) 
 
-                return np.array(scores)
+                    scores = []
+                    for prediction in predictions:
+                        sorted_pred = sorted(prediction, key=lambda x: x['label'])
+                        
+                        items = [item['score'] for item in sorted_pred]
+                        scores.append(items)
 
-            with st.spinner("Analyzing with LIME..."):
-                explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
-                exp = explainer.explain_instance(
-                    text_instance=text,
-                    classifier_fn=predict_function,
-                    num_features=5 # Top 5 Words
-                )
-                fig = exp.as_pyplot_figure()
-                st.pyplot(fig)
+                    return np.array(scores)
+
+                with st.spinner("Analyzing with LIME..."):
+                    explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
+                    exp = explainer.explain_instance(
+                        text_instance=text,
+                        classifier_fn=predict_function,
+                        num_features=5 # Top 5 Words
+                    )
+                    fig = exp.as_pyplot_figure()
+                    st.pyplot(fig)
