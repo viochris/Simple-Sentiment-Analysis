@@ -13,6 +13,7 @@ import streamlit as st
 from transformers import pipeline
 import plotly.express as px
 from utils import get_top_n_words_en, get_top_n_words_id, convert_for_download
+from lime.lime_text import LimeTextExplainer
 import torch
 import re, time
 
@@ -62,6 +63,9 @@ if bahasa == "English":
             # Batch Inference: Apply model to the entire column if not already processed
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
+
+            if "Confidence" not in df.columns:
+                df['Confidence'] = df['komentar'].apply(lambda x: nlp(x)[0]["score"])
             
             st.write("📊 Result:")
             st.dataframe(df.head())
@@ -109,26 +113,38 @@ if bahasa == "English":
             st.write("⚠️ Belum ada file yang di-upload")
             
     with tab_teks:
-        # Real-time Chat Interface for Sentiment Analysis
-        if "messages_en" not in st.session_state:
-            st.session_state.messages_en = []
-        
-        text = st.chat_input("Write Your Sentiment Here") 
+
+        text = st.text_area("Write Your Sentiment Here") 
         if text:
-            st.session_state.messages_en.append({"role": "user", "content": text})
-            
             # Perform Single Inference
             sentiment = nlp(text)[0]["label"]     
-            st.session_state.messages_en.append({"role": "ai", "content": sentiment})
-            
-            # Render Chat History
-            for msg in st.session_state.messages_en:
-                # For each message, create a chat message bubble with the appropriate role ("user" or "assistant").
-                with st.chat_message(msg["role"]):
-                    # Display the content of the message using Markdown for nice formatting.
-                    st.markdown(msg["content"]) 
+            conf = nlp(text)[0]["score"]     
+            st.info(
+                st.markdown(f"""
+                    **Your Text: **{msg['content']}
+                    **Confidence: **{msg['conf']}
+                """) 
+            )
         
-        
+        def predict_function(text):
+            predictions = nlp(text, top_k=None) 
+
+            scores = []
+            for prediction in predictions:
+                sorted_pred = sorted(prediction, key=lambda x: x['label'])
+                
+                items = [score for item['score'] in sorted_pred]
+                scores.append(scores)
+
+            return np.array(scores)
+
+        explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
+        exp = explainer.explain_instance(
+            text_instance=text,
+            classifier_fn=predict_function,
+            num_features=5 # Top 5 Words
+        )
+        exp.show_in_notebook(text=True)
         
 # ==========================================
 # 4. Logic: Indonesian Analysis
@@ -153,6 +169,10 @@ elif bahasa == "Indonesia":
             # Apply Inference Row-by-Row
             if "Sentiment" not in df.columns:
                 df['Sentiment'] = df['komentar'].apply(lambda x: nlp(x)[0]["label"])
+
+            if "Confidence" not in df.columns:
+                df['Confidence'] = df['komentar'].apply(lambda x: nlp(x)[0]["score"])
+            
             st.write("📊 Result:")
             st.dataframe(df.head())
             
@@ -208,11 +228,14 @@ elif bahasa == "Indonesia":
             st.session_state.messages_indo.append({"role": "user", "content": text})
             
             sentiment = nlp(text)[0]["label"]     
-            st.session_state.messages_indo.append({"role": "ai", "content": sentiment})
+            conf = nlp(text)[0]["score"]     
+            st.session_state.messages_indo.append({"role": "ai", "content": sentiment, "conf": conf})
             
             for msg in st.session_state.messages_indo:
                 # For each message, create a chat message bubble with the appropriate role ("user" or "assistant").
                 with st.chat_message(msg["role"]):
                     # Display the content of the message using Markdown for nice formatting.
-                    st.markdown(msg["content"])
-
+                    st.markdown(f"""
+                        **Your Text: **{msg['content']}
+                        **Confidence: **{msg['conf']}
+                    """) 
