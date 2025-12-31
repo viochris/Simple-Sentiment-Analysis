@@ -158,7 +158,7 @@ if bahasa == "English":
                         classifier_fn=predict_function,
                         num_features=5 # Top 5 Words
                     )
-                    exp.as_html()
+                    html_data = exp.as_html()
                     components.html(html_data, height=800, scrolling=True)
         
 # ==========================================
@@ -281,5 +281,5 @@ elif bahasa == "Indonesia":
                         classifier_fn=predict_function,
                         num_features=5 # Top 5 Words
                     )
-                    exp.as_html()
+                    html_data = exp.as_html()
                     components.html(html_data, height=800, scrolling=True)
