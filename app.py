@@ -9,6 +9,7 @@ Description:
 """
 
 import pandas as pd
+import numpy as np
 import streamlit as st
 from transformers import pipeline
 import plotly.express as px
@@ -126,25 +127,27 @@ if bahasa == "English":
                 """) 
             )
         
-        def predict_function(text):
-            predictions = nlp(text, top_k=None) 
+            def predict_function(text):
+                predictions = nlp(text, top_k=None) 
 
-            scores = []
-            for prediction in predictions:
-                sorted_pred = sorted(prediction, key=lambda x: x['label'])
-                
-                items = [item['score'] for item in sorted_pred]
-                scores.append(items)
+                scores = []
+                for prediction in predictions:
+                    sorted_pred = sorted(prediction, key=lambda x: x['label'])
+                    
+                    items = [item['score'] for item in sorted_pred]
+                    scores.append(items)
 
-            return np.array(scores)
+                return np.array(scores)
 
-        explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
-        exp = explainer.explain_instance(
-            text_instance=text,
-            classifier_fn=predict_function,
-            num_features=5 # Top 5 Words
-        )
-        exp.show_in_notebook(text=True)
+            with st.spinner("Analyzing with LIME..."):
+                explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
+                exp = explainer.explain_instance(
+                    text_instance=text,
+                    classifier_fn=predict_function,
+                    num_features=5 # Top 5 Words
+                )
+                fig = exp.as_pyplot_figure()
+                st.pyplot(fig)
         
 # ==========================================
 # 4. Logic: Indonesian Analysis
@@ -223,19 +226,36 @@ elif bahasa == "Indonesia":
         if "messages_indo" not in st.session_state:
             st.session_state.messages_indo = []
         
-        text = st.chat_input("Write Your Sentiment Here") 
+        text = st.text_area("Write Your Sentiment Here") 
         if text:
-            st.session_state.messages_indo.append({"role": "user", "content": text})
-            
+            # Perform Single Inference
             sentiment = nlp(text)[0]["label"]     
             conf = nlp(text)[0]["score"]     
-            st.session_state.messages_indo.append({"role": "ai", "content": sentiment, "conf": conf})
-            
-            for msg in st.session_state.messages_indo:
-                # For each message, create a chat message bubble with the appropriate role ("user" or "assistant").
-                with st.chat_message(msg["role"]):
-                    # Display the content of the message using Markdown for nice formatting.
-                    st.markdown(f"""
-                        **Your Text: **{msg['content']}
-                        **Confidence: **{msg['conf']}
-                    """) 
+            st.info(
+                st.markdown(f"""
+                    **Your Text: **{sentiment}
+                    **Confidence: **{conf}
+                """) 
+            )
+        
+            def predict_function(text):
+                predictions = nlp(text, top_k=None) 
+
+                scores = []
+                for prediction in predictions:
+                    sorted_pred = sorted(prediction, key=lambda x: x['label'])
+                    
+                    items = [item['score'] for item in sorted_pred]
+                    scores.append(items)
+
+                return np.array(scores)
+
+            with st.spinner("Analyzing with LIME..."):
+                explainer = LimeTextExplainer(class_names=['negative', 'neutral', 'positive'])
+                exp = explainer.explain_instance(
+                    text_instance=text,
+                    classifier_fn=predict_function,
+                    num_features=5 # Top 5 Words
+                )
+                fig = exp.as_pyplot_figure()
+                st.pyplot(fig)
