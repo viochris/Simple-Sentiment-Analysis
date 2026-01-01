@@ -53,7 +53,7 @@ Beyond simple classification, this dashboard provides deep linguistic insights:
 
 1.  **Clone the Repository**
     ```bash
-    git clone [https://github.com/viochris/Simple-Sentiment-Analysis.git](https://github.com/viochris/Simple-Sentiment-Analysis.git)
+    git clone https://github.com/viochris/Simple-Sentiment-Analysis.git
     cd Simple-Sentiment-Analysis
     ```
 
