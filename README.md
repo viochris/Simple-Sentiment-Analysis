@@ -64,7 +64,7 @@ Beyond simple classification, this dashboard provides deep linguistic insights:
 
 3.  **Run the Dashboard**
     ```bash
-    streamlit run dashboard.py
+    streamlit run app.py
     ```
 
 4.  **How to Use**
